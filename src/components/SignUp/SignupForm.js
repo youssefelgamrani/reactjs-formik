@@ -1,6 +1,10 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import InputForm from "../shared/InputForm";
+import {
+  InputFormText,
+  InputFormSelect,
+  InputFormCheckBox,
+} from "../shared/InputForm";
 import "./styles.css";
 import * as Yup from "yup";
 
@@ -12,12 +16,24 @@ const yupValidation = Yup.object({
     .max(20, "Must be 20 characters or less")
     .required("Required"),
   email: Yup.string().email("Invalid email address").required("Required"),
+  acceptedTerms: Yup.boolean()
+    .required("Required")
+    .oneOf([true], "You must accept the terms and conditions."),
+  jobType: Yup.string()
+    .oneOf(["designer", "development", "product", "other"], "Invalid Job Type")
+    .required("Required"),
 });
 
 export default function SignupForm() {
   return (
     <Formik
-      initialValues={{ firstName: "", lastName: "", email: "" }}
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        acceptedTerms: false,
+        jobType: "",
+      }}
       validationSchema={yupValidation}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
@@ -26,20 +42,38 @@ export default function SignupForm() {
         }, 400);
       }}
     >
-      {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="firstName">First Name</label>
-          <Field name="firstName" type="text" />
-          <ErrorMessage name="firstName" />
-          <label htmlFor="lastName">Last Name</label>
-          <Field name="lastName" type="text" />
-          <ErrorMessage name="lastName" />
-          <label htmlFor="email">Email Address</label>
-          <Field name="email" type="email" />
-          <ErrorMessage name="email" />
-          <button type="submit">Submit</button>
-        </form>
-      )}
+      <Form>
+        <InputFormText
+          label="First Name"
+          name="firstName"
+          type="text"
+          placeholder="Yo"
+        />
+        <InputFormText
+          label="Last Name"
+          name="lastName"
+          type="text"
+          placeholder="Eg"
+        />
+        <InputFormText
+          label="Email Address"
+          name="email"
+          type="email"
+          placeholder="yoeg@gmail.com"
+        />
+        <InputFormSelect label="Job Type" name="jobType">
+          <option value="">Select a job type</option>
+          <option value="designer">Designer</option>
+          <option value="development">Developer</option>
+          <option value="product">Product Manager</option>
+          <option value="other">Other</option>
+        </InputFormSelect>
+        <InputFormCheckBox name="acceptedTerms">
+          I accept the terms and conditions
+        </InputFormCheckBox>
+
+        <button type="submit">Submit</button>
+      </Form>
     </Formik>
   );
 }
