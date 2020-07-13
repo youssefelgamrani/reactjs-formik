@@ -35,7 +35,7 @@ export default function SignupForm() {
         tye="text"
         changeHandler={formik.handleChange}
         blurHander={formik.handleBlur}
-        values={formik.values.lastName}
+        values={formik.values.firstName}
         error={formik.errors.firstName}
         inputTouched={formik.touched.firstName}
       />
