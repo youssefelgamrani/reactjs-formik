@@ -1,6 +1,6 @@
 import React from "react";
-import { useFormik } from "formik";
-import InputForm from "./InputForm";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import InputForm from "../shared/InputForm";
 import "./styles.css";
 import * as Yup from "yup";
 
@@ -15,52 +15,31 @@ const yupValidation = Yup.object({
 });
 
 export default function SignupForm() {
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-    },
-    validationSchema: yupValidation,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="email">Email Address</label>
-      <InputForm
-        field="firstName"
-        tye="text"
-        changeHandler={formik.handleChange}
-        blurHander={formik.handleBlur}
-        values={formik.values.firstName}
-        error={formik.errors.firstName}
-        inputTouched={formik.touched.firstName}
-      />
-      <br />
-      <InputForm
-        field="lastName"
-        tye="text"
-        changeHandler={formik.handleChange}
-        blurHander={formik.handleBlur}
-        values={formik.values.lastName}
-        error={formik.errors.lastName}
-        inputTouched={formik.touched.lastName}
-      />
-      <br />
-      <InputForm
-        field="email"
-        tye="email"
-        changeHandler={formik.handleChange}
-        blurHander={formik.handleBlur}
-        values={formik.values.email}
-        error={formik.errors.email}
-        inputTouched={formik.touched.email}
-      />
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <Formik
+      initialValues={{ firstName: "", lastName: "", email: "" }}
+      validationSchema={yupValidation}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          <label htmlFor="firstName">First Name</label>
+          <Field name="firstName" type="text" />
+          <ErrorMessage name="firstName" />
+          <label htmlFor="lastName">Last Name</label>
+          <Field name="lastName" type="text" />
+          <ErrorMessage name="lastName" />
+          <label htmlFor="email">Email Address</label>
+          <Field name="email" type="email" />
+          <ErrorMessage name="email" />
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    </Formik>
   );
 }

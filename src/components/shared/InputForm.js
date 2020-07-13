@@ -1,6 +1,6 @@
 import React from "react";
-import "./styles.css";
-import ErrorBloc from "./ErrorBloc";
+import "../SignUp/styles.css";
+import ErrorBloc from "../SignUp/ErrorBloc";
 
 export default function InputForm(props) {
   return (
