@@ -9,10 +9,11 @@ export default function InputForm(props) {
         id={props.field}
         name={props.field}
         type={props.type}
-        onChange={props.handler}
+        onChange={props.changeHandler}
+        onBlur={props.blurHandler}
         value={props.field.values}
       />
-      <ErrorBloc field={props.error} />
+      <ErrorBloc field={props.error} fieldTouched={props.inputTouched} />
     </>
   );
 }

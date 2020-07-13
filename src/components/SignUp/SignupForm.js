@@ -23,24 +23,33 @@ export default function SignupForm() {
       <InputForm
         field="firstName"
         tye="text"
-        handler={formik.handleChange}
+        changeHandler={formik.handleChange}
+        blurHander={formik.handleBlur}
         values={formik.values.lastName}
         error={formik.errors.firstName}
+        inputTouched={formik.touched.firstName}
       />
+      <br />
       <InputForm
         field="lastName"
         tye="text"
-        handler={formik.handleChange}
+        changeHandler={formik.handleChange}
+        blurHander={formik.handleBlur}
         values={formik.values.lastName}
         error={formik.errors.lastName}
+        inputTouched={formik.touched.lastName}
       />
+      <br />
       <InputForm
         field="email"
         tye="email"
-        handler={formik.handleChange}
+        changeHandler={formik.handleChange}
+        blurHander={formik.handleBlur}
         values={formik.values.email}
         error={formik.errors.email}
+        inputTouched={formik.touched.email}
       />
+      <br />
       <button type="submit">Submit</button>
     </form>
   );
