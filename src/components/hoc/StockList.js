@@ -4,26 +4,10 @@ import TableRow from "../shared/TableRow";
 export default class StockList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      stocks: [
-        {
-          id: 1,
-          name: "TCS",
-        },
-        {
-          id: 2,
-          name: "Infosys",
-        },
-        {
-          id: 3,
-          name: "Reliance",
-        },
-      ],
-    };
   }
 
   tabRow() {
-    const stocks = this.state.stocks;
+    const stocks = this.props.data;
     if (stocks instanceof Array) {
       return stocks.map((obj, i) => {
         return <TableRow obj={obj} key={i} />;
