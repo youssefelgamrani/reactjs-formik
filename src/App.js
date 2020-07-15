@@ -41,7 +41,7 @@ const Users = ListHoc(UserList, UsersData);
 function App() {
   return (
     <div className="App">
-      {/* <SignupForm /> */}
+      <SignupForm />
       <Users />
       <Stocks />
     </div>
